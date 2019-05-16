@@ -74,8 +74,7 @@ public class TableLocks {
                 }
 
                 conn.commit();
-                PreparedStatement p2 = conn.prepareStatement("Unlock tables");
-                p2.execute();
+                stm.execute("Unlock tables");
             }
             while(quantity > 0);
 

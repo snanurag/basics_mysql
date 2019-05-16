@@ -4,9 +4,9 @@ package concurrency;
  * By default it is repeatable read transaction. It acquires row level locks (IX -> Intention exlusive locks). That's it works best.
  * No. of connections are directly effecting the delete operation.
  *
- * For 3 connections it took 26 seconds to delete 100K records
- * For 10 connections it took 13 seconds to delete 100k records
- * For 20 connections it took 15 seconds to delete 100k records.
+ * For 3 connections it took 25 seconds to delete 100K records
+ * For 10 connections it took 9 seconds to delete 100k records
+ * For 20 connections it took 13 seconds to delete 100k records.
  *
  * Seem more like a connection pooling issue.
  *
@@ -25,31 +25,31 @@ public class NaiveRowDeletes {
         ExecutorService executorService = Executors.newFixedThreadPool(20);
         Runnable r = () -> {
             Connection conn = ddl.Connection.createNewConnection();
+            time = System.currentTimeMillis();
             transaction(conn);
 
         };
         rowID = 0;
-        time = System.currentTimeMillis();
         executorService.execute(r);
         executorService.execute(r);
         executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
-        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
+//        executorService.execute(r);
         executorService.shutdown();
     }
 

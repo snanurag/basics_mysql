@@ -11,9 +11,10 @@ public class FillSamsungSale {
     static volatile int updates;
 
     public static void main(String[] args) {
+
         Connection conn = ddl.Connection.createNewConnection();
         transaction(conn);
-//        System.out.println(updates);
+        System.out.println(updates);
     }
 
     private static void transaction(Connection conn) {
