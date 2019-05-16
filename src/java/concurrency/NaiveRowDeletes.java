@@ -1,7 +1,7 @@
 package concurrency;
 
 /**
- * By default it is repeatable read transaction. It acquires row level locks (IX -> Intention exlusive locks). That's it works best.
+ * By default it is repeatable read transaction. It acquires row level locks (IX (TABLE) -> X(ROW) ). That's how it works best.
  * No. of connections are directly effecting the delete operation.
  *
  * For 3 connections it took 25 seconds to delete 100K records

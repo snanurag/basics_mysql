@@ -2,10 +2,10 @@ package concurrency;
 
 /**
  *
- * With 10 threads and table locks it takes around 60 seconds.
+ * With 10 threads and table locks it takes around 60 seconds for 100k rows.
  *
- * With 10 threads and no table locks it takes around 13 seconds. Because by default repeatable_read type of transaction aquires row
- * level locks (IX -> intention exlusive locks).
+ * With 10 threads and no table locks it takes around 13 seconds for 100k rows. Because by default repeatable_read type of transaction aquires row
+ * level locks (IX(Table) -> X(Row)).
  *
  */
 
