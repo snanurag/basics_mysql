@@ -9,4 +9,4 @@ SELECT * FROM USER;
 
 UPDATE USER SET name = 'anurag1' where name='anurag';
 
-#COMMIT;
+COMMIT;

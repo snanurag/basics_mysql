@@ -11,7 +11,7 @@ package concurrency;
  * This is giving deadlock. It is simple.
  * First thread takes S (Shared) lock then another thread requires X lock on same row.
  * Then first thread tries to acquire X lock on the same row without releasing S lock on same row.
- * That's how deadlock error comes. First thread gives the deadlock exception.
+ * That's how deadlock error comes. First thread gives the deadlock exception. That's how all other threads except first end up in deadlock.
  *
  * Repeatable read or read committed never exhibit this behavior because they don't take S lock.
  * They only acquire X lock that too on update or write. So one transaction can hold only one type of lock i.e. X
@@ -53,23 +53,28 @@ public class Serializable {
     private static void transaction(Connection conn){
         try{
 
+            System.out.println("Thread started : "+Thread.currentThread().getName());
             int quantity = 0;
             conn.setAutoCommit(false);
 
             do{
                 Statement stm = conn.createStatement();
                 stm.execute("select quantity from transaction");
+                System.out.println(Thread.currentThread().getName() + " acquired read lock.");
+
                 ResultSet rs = stm.getResultSet();
                 rs.next();
                 quantity = rs.getInt(1);
 //                System.out.println(quantity);
                 quantity--;
                 if(quantity > 0){
+                    System.out.println(Thread.currentThread().getName() + " acquiring write lock.");
                     PreparedStatement preparedStatement = conn.prepareStatement("update transaction set quantity = ? where name = ?");
                     preparedStatement.setInt(1, quantity);
                     preparedStatement.setString(2, "redmi 6A");
 
                     preparedStatement.executeUpdate();
+                    System.out.println(Thread.currentThread().getName() + " acquired write lock.");
                     updates++;
 
                 }
@@ -83,7 +88,9 @@ public class Serializable {
 
         }
         catch (SQLException e){
-            e.printStackTrace();
+
+            System.out.println("Thread gave exception : "+Thread.currentThread().getName()+ " "+e.getMessage());
+
             try{
                 conn.rollback();
             }
