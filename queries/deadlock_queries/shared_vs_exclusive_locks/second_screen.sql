@@ -1,3 +1,4 @@
+## mysql -u root -pwelcome@123 test
 # RUN THIS when instructed in first screen.alter
 
 SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;

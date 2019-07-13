@@ -1,3 +1,4 @@
+## mysql -u root -pwelcome@123 test
 ## You need to run these queries from different screens.
 
 SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
